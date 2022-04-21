@@ -75,7 +75,7 @@ public class JWTService {
      * @param token user token
      * @return user id
      */
-    private Long getIdFromToken(String token) {
+    public Long getIdFromToken(String token) {
         Claims claims = getJwtToken(token);
         return claims.get("id", Double.class).longValue();
     }

@@ -40,4 +40,11 @@ public class UserServiceImpl implements UserService {
         return response;
     }
 
+    @Override
+    public User findById(Long id){
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ConfigException(HttpStatus.BAD_REQUEST, Translator.getMessage(GeneralMessageConstants.USER_NOT_FOUND),
+                        GeneralMessageConstants.USR_NOT_FOUND));
+    }
+
 }

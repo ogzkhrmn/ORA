@@ -54,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/document",
                         "/favicon.ico",
                         "/h2-console/**",
+                        "/notification/**",
                         "/login").permitAll()
                 .anyRequest().authenticated().and()
                 .sessionManagement()
