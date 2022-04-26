@@ -26,11 +26,11 @@ public class SecurityHandshakeInterceptor implements HandshakeInterceptor {
     @Override
     public boolean beforeHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse, WebSocketHandler webSocketHandler, Map<String, Object> map) throws Exception {
         String token = serverHttpRequest.getHeaders().getFirst(util.getHeaderString());
-        return securityUtil.checksUserToken(token);
+        return securityUtil.checksUserToken(token, map);
     }
 
     @Override
     public void afterHandshake(ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse, WebSocketHandler webSocketHandler, Exception e) {
-
+        // Do nothing after handshake.
     }
 }

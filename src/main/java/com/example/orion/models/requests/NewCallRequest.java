@@ -15,12 +15,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class NewCallRequest {
 
-    @Schema(description = "From phone", example = "5555555555", required = true)
-    @Length(min = 10, max = 10)
-    @NotBlank
-    private String from;
-
-    @Schema(description = "Destination phone", example = "5556665555", required = true)
+    @Schema(description = "Destination phone", example = "5554443322", required = true)
     @Length(min = 10, max = 10)
     @NotBlank
     private String to;

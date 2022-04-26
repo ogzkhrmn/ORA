@@ -7,7 +7,7 @@ import com.example.orion.core.security.config.ConfigAuthProvider;
 import com.example.orion.core.security.jwt.JWTService;
 import com.example.orion.entities.User;
 import com.example.orion.models.requests.AuthRequest;
-import com.example.orion.models.responses.UserResponse;
+import com.example.orion.models.requests.ConfigChangeRequest;
 import com.example.orion.repositories.UserRepository;
 import com.example.orion.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,16 +28,12 @@ public class UserServiceImpl implements UserService {
     private JWTService jwtService;
 
     @Override
-    public UserResponse loginUser(AuthRequest authRequest) {
+    public User loginUser(AuthRequest authRequest) {
         User user = userRepository.findByUsername(authRequest.getUsername().toLowerCase())
                 .orElseThrow(() -> new ConfigException(HttpStatus.FORBIDDEN, Translator.getMessage(GeneralMessageConstants.WRONG_INFO),
                         GeneralMessageConstants.WRONG_INFO_ERR));
         authProvider.authenticate(new UsernamePasswordAuthenticationToken(user, authRequest.getPassword(), jwtService.getUserRoles(user)));
-        UserResponse response = new UserResponse();
-        response.setUsername(user.getUsername());
-        response.setRole(user.getRole().getRole());
-        response.setToken(jwtService.createToken(user));
-        return response;
+        return user;
     }
 
     @Override
@@ -45,6 +41,14 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ConfigException(HttpStatus.BAD_REQUEST, Translator.getMessage(GeneralMessageConstants.USER_NOT_FOUND),
                         GeneralMessageConstants.USR_NOT_FOUND));
+    }
+
+    @Override
+    public void changeConfig(ConfigChangeRequest request) {
+        User user = jwtService.getLoggedUser();
+        user.setConfig(request.getConfig());
+        user.setLang(request.getLang());
+        userRepository.save(user);
     }
 
 }

@@ -8,6 +8,7 @@ package com.example.orion.controllers;
 
 import com.example.orion.core.exception.ErrorData;
 import com.example.orion.models.requests.AuthRequest;
+import com.example.orion.models.requests.ConfigChangeRequest;
 import com.example.orion.models.responses.UserResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -31,5 +32,15 @@ public interface UserController {
                     schema = @Schema(implementation = ErrorData.class))})})
     @PostMapping(value = "/login")
     ResponseEntity<UserResponse> loginUser(@RequestBody AuthRequest request);
+
+    @Operation(summary = "User config changer. Request has to include {{phone}} {{date}} {{number}} fields")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Config changed",
+                    content = {@Content(mediaType = "application/json",
+                            schema = @Schema(implementation = UserResponse.class))}),
+            @ApiResponse(responseCode = "400", description = "Login error", content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorData.class))})})
+    @PostMapping(value = "/config")
+    ResponseEntity<UserResponse> changeConfig(@RequestBody ConfigChangeRequest request);
 
 }

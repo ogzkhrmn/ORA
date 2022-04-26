@@ -32,7 +32,14 @@ public class PhoneControllerImpl implements PhoneController {
 
     @Override
     public ResponseEntity<Void> addCall(NewCallRequest request) {
-        return null;
+        phoneService.addCall(request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> updateMissedCalls() {
+        phoneService.updateMissedCalls();
+        return ResponseEntity.noContent().build();
     }
 
 }

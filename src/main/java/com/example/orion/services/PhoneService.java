@@ -6,8 +6,13 @@
  **/
 package com.example.orion.services;
 
+import com.example.orion.models.requests.NewCallRequest;
 import com.example.orion.models.requests.PhoneAddRequest;
 
 public interface PhoneService {
     void addPhone(PhoneAddRequest request);
+
+    void addCall(NewCallRequest request);
+
+    void updateMissedCalls();
 }

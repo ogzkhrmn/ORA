@@ -16,7 +16,7 @@ import javax.validation.constraints.NotEmpty;
 @Data
 public class AuthRequest {
 
-    @Schema(description = "Name of user", example = "example", required = true)
+    @Schema(description = "Name of user", example = "example1", required = true)
     @NotEmpty
     @Email
     private String username;

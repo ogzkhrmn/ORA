@@ -8,10 +8,12 @@ package com.example.orion.services;
 
 import com.example.orion.entities.User;
 import com.example.orion.models.requests.AuthRequest;
-import com.example.orion.models.responses.UserResponse;
+import com.example.orion.models.requests.ConfigChangeRequest;
 
 public interface UserService {
-    UserResponse loginUser(AuthRequest authRequest);
+    User loginUser(AuthRequest authRequest);
 
     User findById(Long id);
+
+    void changeConfig(ConfigChangeRequest request);
 }

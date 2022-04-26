@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -37,5 +38,13 @@ public interface PhoneController {
                     schema = @Schema(implementation = ErrorData.class))})})
     @PostMapping(value = "/phones/call")
     ResponseEntity<Void> addCall(@RequestBody NewCallRequest request);
+
+    @Operation(summary = "Set missed calls as read")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "OK"),
+            @ApiResponse(responseCode = "400", description = "Update error", content = {@Content(mediaType = "application/json",
+                    schema = @Schema(implementation = ErrorData.class))})})
+    @PatchMapping(value = "/phones")
+    ResponseEntity<Void> updateMissedCalls();
 
 }

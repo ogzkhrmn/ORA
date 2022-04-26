@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 @Component
 public class SecurityUtil {
 
@@ -23,14 +25,14 @@ public class SecurityUtil {
     private JWTUtil util;
 
 
-    public boolean checksUserToken(String token) {
+    public boolean checksUserToken(String token, Map<String, Object> map) {
         if (token == null || !token.contains(util.getTokenPrefix())) {
             throw new ConfigException(HttpStatus.UNAUTHORIZED, "JWT token is invalid", "JWT_TOKEN_INVALID");
         }
         if (jwtService.isTokenExpired(token)) {
             throw new ConfigException(HttpStatus.UNAUTHORIZED, "JWT token is expired", "JWT_TOKEN_EXPIRED");
         }
-        jwtService.getUserFromToken(token);
+        map.put("user", jwtService.getUserFromToken(token));
         return true;
     }
 

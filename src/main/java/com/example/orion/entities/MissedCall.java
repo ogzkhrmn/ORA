@@ -16,11 +16,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 
 @Table(name = "missed_call")
 @NoArgsConstructor
@@ -32,14 +31,21 @@ public class MissedCall {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @NotNull
     private Long userId;
 
-    private LocalDateTime localDateTime = LocalDateTime.now();
+    @NotNull
+    private LocalDateTime date = LocalDateTime.now();
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "phone_id")
-    private List<Phone> phones = new ArrayList<>();
+    private Phone phone;
 
-    private boolean received;
+    @NotNull
+    private boolean read = Boolean.FALSE;
+
+    @NotNull
+    private boolean received = Boolean.FALSE;
 
 }

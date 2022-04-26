@@ -30,15 +30,8 @@ public class Translator {
         return messageSource.getMessage(message, args, locale);
     }
 
-    public static Locale getLanguage() {
-        return LocaleContextHolder.getLocale();
+    public static String getMessage(String message, Locale locale, Object... args) {
+        return messageSource.getMessage(message, args, locale);
     }
-
-    public static String getLanguageUpper() {
-        return LocaleContextHolder.getLocale().getLanguage().toUpperCase(Locale.UK);
-    }
-
-    public static String getDefaultLanguageUpper() {
-        return DEFAULT_LOCALE.getLanguage().toUpperCase(Locale.UK);
-    }
+    
 }

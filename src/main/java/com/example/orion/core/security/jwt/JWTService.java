@@ -59,7 +59,7 @@ public class JWTService {
      * @return user token
      */
     public String createToken(User user) {
-        return util.getTokenPrefix() + Jwts.builder()
+        return Jwts.builder()
                 .setIssuedAt(Timestamp.valueOf(LocalDateTime.now()))
                 .setExpiration(Timestamp.valueOf(LocalDateTime.now().plusDays(1)))
                 .claim("username", user.getUsername().toLowerCase())
