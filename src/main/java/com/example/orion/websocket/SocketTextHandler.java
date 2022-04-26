@@ -34,7 +34,7 @@ public class SocketTextHandler extends AbstractWebSocketHandler {
     public void afterConnectionEstablished(WebSocketSession session) throws IOException {
         User user = (User) session.getAttributes().get("user");
         sessionsMap.putIfAbsent(user.getId(), session);
-        session.sendMessage(new TextMessage(getMessage(missedCallRepository.findMissedCalls(user.getId()), user)));
+        session.sendMessage(new TextMessage(getMissedCallMessage(missedCallRepository.findMissedCalls(user.getId()), user)));
     }
 
     @Override
@@ -43,7 +43,7 @@ public class SocketTextHandler extends AbstractWebSocketHandler {
         sessionsMap.remove(user.getId());
     }
 
-    private String getMessage(List<Object[]> missedCallList, User user) throws IOException {
+    private String getMissedCallMessage(List<Object[]> missedCallList, User user) throws IOException {
         if (missedCallList.isEmpty()) {
             return StringUtils.EMPTY;
         }
